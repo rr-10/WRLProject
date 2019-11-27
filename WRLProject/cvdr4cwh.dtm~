@@ -1,0 +1,106 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
+namespace WRLProject
+{
+    class Boss
+    {
+        public Vector2 currentPos; // current position
+        private Vector2 initialPos; // starting position
+        Vector2 speed;
+        //private bool movingLeft;
+        //private bool movingRight;
+        //private bool isJumping;
+        public Texture2D bossTex; // texture of enemy
+        public Rectangle rectangle; // player rectangle
+        public Rectangle bossRect; // enemy rectangle
+        public Rectangle fightRect; // attacking rectangle
+
+        public Boss(Vector2 p, Texture2D t)
+        {
+            currentPos = p;
+            bossTex = t;
+            bossRect = new Rectangle(
+                (int)currentPos.X, 
+                (int)currentPos.Y, 
+                bossTex.Width, 
+                bossTex.Height);
+            //movingLeft = true;
+            //movingRight = false;
+            //isJumping = true;
+            fightRect = new Rectangle(
+                (int)fightRect.X - 50,
+                (int)fightRect.Y - 50,
+                bossTex.Width + 100,
+                bossTex.Height + 100);
+            initialPos = currentPos;
+        }
+
+        public void Update()
+        {
+            
+            /*if (movingLeft)
+            {
+                pos.X -= 10;
+                if(pos.X <= startPos.X - 200)
+                {
+                    movingLeft = false;
+                    movingRight = true;
+                }
+            }
+
+            if(movingRight)
+            {
+                pos.X += 10;
+                if (pos.X >= startPos.X)
+                {
+                    movingLeft = true;
+                    movingRight = false;
+                }
+            }*/
+                       
+            /*if(isJumping)
+            {
+                currentPos.Y += 10;
+                if(currentPos.Y <= initialPos.Y - 200)
+                {
+                    isJumping = false;
+                }
+                else
+                {
+                    isJumping = true;
+                }
+            }*/
+
+            
+            bossRect.X = (int)currentPos.X;
+            bossRect.Y = (int)currentPos.Y;
+            fightRect.X = (int)currentPos.X - 50;
+            fightRect.Y = (int)currentPos.Y - 50;
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            //sb.Begin();
+            sb.Draw(bossTex, bossRect, Color.White);
+            //sb.End();
+        }
+
+        public bool CollideWithPlayer(Rectangle plyrRect)
+        {
+            if (rectangle.Intersects(plyrRect))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+    }
+}
